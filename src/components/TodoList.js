@@ -1,14 +1,13 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { toggle, destroy, selectTodos} from '../redux/todos/todosSlice';
+import { toggle, destroy, selectFilteredTodos} from '../redux/todos/todosSlice';
 
-let filtered = [];
 
 function TodoList() {
 	const dispatch = useDispatch();
-	const items = useSelector(selectTodos);
-	const activeFilter = useSelector(state => state.todos.activeFilter);
+	const filteredTodos = useSelector(selectFilteredTodos);
+
 
 	const handleDestroy = (id) =>{
 		if(window.confirm('Are you sure?')){
@@ -16,20 +15,13 @@ function TodoList() {
 		}
 	};
 
-	filtered = items;
-	if(activeFilter !== 'all'){
-		filtered =items.filter((todo) =>(
-			activeFilter === 'active' 
-			? todo.completed === false 
-			: todo.completed === true
-		));
-	}
+
 
 
   return (
         <ul className="todo-list">
 			{
-				filtered.map((item) => (
+				filteredTodos.map((item) => (
 					<li key={item.id} className={item.completed ? 'completed' : ''}>
 						<div className="view">
 							<input 

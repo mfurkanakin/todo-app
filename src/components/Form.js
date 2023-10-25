@@ -10,6 +10,7 @@ function Form() {
 
 
   const handleSubmit = (e) => {
+    if (!title) return;
     e.preventDefault(); //sayfanın native olarak yenilenme davranışını engelliyoruz bu methodla
     dispatch(addTodo({ id:nanoid(), title, completed: false }));
     setTitle('');
